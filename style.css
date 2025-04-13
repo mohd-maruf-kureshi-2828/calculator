@@ -93,6 +93,8 @@ body {
     background: #00ffff;
     color: black;
     transform: scale(1.05);
+    box-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+    transform: scale(1.05);
   }
 button.pressed {
   transform: scale(0.95);
