@@ -1,6 +1,6 @@
 const display = document.getElementById("display");
 const buttons = document.querySelectorAll("button");
-const bgVideo = document.getElementById("bgvideo").addEventListener("ended",()=>{
+const bgVideo = document.getElementById("bgVideo").addEventListener("ended",()=>{
 video.pause();
 video.currentTime -=0.01;
 
