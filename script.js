@@ -1,5 +1,10 @@
 const display = document.getElementById("display");
 const buttons = document.querySelectorAll("button");
+const bgVideo = document.getElementById('bgVideo');
+bgVideo.addEventListener('ended', () => {
+  bgVideo.currentTime = 0;
+  bgVideo.play();
+});
 
 let currentInput = "";
 let resetNext = false;
