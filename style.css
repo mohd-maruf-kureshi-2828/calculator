@@ -41,20 +41,16 @@ body {
 }
 /* background video */
 #bgVideo {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     min-width: 100%;
     min-height: 100%;
     z-index: -1; /* background me rakhta hai */
     object-fit: cover; /* screen me achhe se fit kar deta hai */
-    animation:seamlessLoop 30s infinite;
+    
   }
-  @keyframes seamlessLoop{
-      0%{opacity:1;}
-      99%{opacity:1;}
-      100%{opacity:0;}
-  }
+
   .calculator-container {
     background: rgba(0, 0, 0, 0.75);
     padding: 20px;
