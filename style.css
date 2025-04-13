@@ -35,10 +35,13 @@ body {
       text-shadow: 0 0 20px #00ffe7, 0 0 30px #00ffe7;
     }
   }
-
+.calculator-container{
+    position:relative;
+    z-index:1;
+}
 /* background video */
 #bgVideo {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     min-width: 100%;
