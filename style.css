@@ -94,6 +94,10 @@ body {
     color: black;
     transform: scale(1.05);
   }
+button.pressed {
+  transform: scale(0.95);
+  box-shadow: 0 0 20px #00ffff;
+}
   
   .equal {
     grid-row: span 2;
