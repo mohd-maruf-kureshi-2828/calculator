@@ -1,6 +1,7 @@
 const display = document.getElementById("display");
 const buttons = document.querySelectorAll("button");
 const bgVideo = document.getElementById('bgVideo');
+
 bgVideo.addEventListener('ended', () => {
   bgVideo.currentTime = 0;
   bgVideo.play();
@@ -28,8 +29,24 @@ buttons.forEach((button) => {
     
     else if (value === "=") {
       if (currentInput.trim() === "") return;
+
       try {
+        // Check: Only valid characters allowed
+        if (!/^[0-9+\-*/.() ]+$/.test(currentInput)) {
+          display.textContent = "Invalid Input";
+          currentInput = "";
+          return;
+        }
+
+        // Check: Ends with valid character (not operator)
+        if (/[+\-*/.]$/.test(currentInput)) {
+          display.textContent = "Syntax Error";
+          currentInput = "";
+          return;
+        }
+
         const result = eval(currentInput);
+
         if (isFinite(result)) {
           currentInput = result.toString();
           display.textContent = currentInput;
@@ -38,6 +55,7 @@ buttons.forEach((button) => {
           display.textContent = "Math Error";
           currentInput = "";
         }
+
       } catch {
         display.textContent = "Syntax Error";
         currentInput = "";
@@ -46,7 +64,6 @@ buttons.forEach((button) => {
     
     else {
       if (resetNext) {
-        // If last was "=", start new expression if number/dot is pressed
         if (!isNaN(value) || value === ".") {
           currentInput = value;
         } else {
@@ -59,4 +76,4 @@ buttons.forEach((button) => {
       display.textContent = currentInput;
     }
   });
-});
+}); 
