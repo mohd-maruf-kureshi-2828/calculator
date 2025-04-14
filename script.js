@@ -10,6 +10,12 @@ bgVideo.addEventListener('ended', () => {
 let currentInput = "";
 let resetNext = false;
 
+// Shake effect on invalid input
+function triggerErrorAnimation() {
+  display.classList.add("error-shake");
+  setTimeout(() => display.classList.remove("error-shake"), 500);
+}
+
 buttons.forEach((button) => {
   button.addEventListener("click", () => {
     const value = button.textContent;
@@ -31,17 +37,21 @@ buttons.forEach((button) => {
       if (currentInput.trim() === "") return;
 
       try {
-        // Check: Only valid characters allowed
+        // Validation: only numbers, operators and brackets allowed
         if (!/^[0-9+\-*/.() ]+$/.test(currentInput)) {
-          display.textContent = "Invalid Input";
-          currentInput = "";
+          triggerErrorAnimation();
           return;
         }
 
-        // Check: Ends with valid character (not operator)
+        // Validation: input should not end with operator
         if (/[+\-*/.]$/.test(currentInput)) {
-          display.textContent = "Syntax Error";
-          currentInput = "";
+          triggerErrorAnimation();
+          return;
+        }
+
+        // Validation: no multiple operators in a row
+        if (/[\+\-\*\/\.]{2,}/.test(currentInput)) {
+          triggerErrorAnimation();
           return;
         }
 
@@ -52,17 +62,18 @@ buttons.forEach((button) => {
           display.textContent = currentInput;
           resetNext = true;
         } else {
-          display.textContent = "Math Error";
-          currentInput = "";
+          triggerErrorAnimation();
         }
 
       } catch {
-        display.textContent = "Syntax Error";
-        currentInput = "";
+        triggerErrorAnimation();
       }
     } 
     
     else {
+      const lastChar = currentInput.slice(-1);
+      const operators = "+-*/.";
+
       if (resetNext) {
         if (!isNaN(value) || value === ".") {
           currentInput = value;
@@ -71,9 +82,15 @@ buttons.forEach((button) => {
         }
         resetNext = false;
       } else {
+        // Avoid duplicate operators
+        if (operators.includes(value) && operators.includes(lastChar)) {
+          triggerErrorAnimation();
+          return;
+        }
         currentInput += value;
       }
+
       display.textContent = currentInput;
     }
   });
-}); 
+});
